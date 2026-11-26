@@ -86,7 +86,7 @@ footer .linkbtn{font-size:.85rem}
   color:#267844;
 }
 
-  #bmsg.success{
+  #bmsg{
   padding:1.2rem 1.5rem;
   margin:1.2rem 0;
   text-align:center;
@@ -100,7 +100,6 @@ footer .linkbtn{font-size:.85rem}
   font-weight:600;
   line-height:1.7;
 }
-  
 .svcwrap{display:grid;grid-template-columns:1fr 280px;gap:1.5rem;align-items:start}
 .svcgrid{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 .box.svc{position:relative;padding-top:3.5rem}
@@ -741,11 +740,11 @@ var thanks="Děkujeme za Váš dotaz. Odpovíme co nejdříve. Tým Deep Clean O
 if(BOOKING_API){m.style.color="var(--sea)";m.textContent="Odesílám…";
 var pl={date:selKey,dateText:sel,name:$("bname").value,email:$("bmail").value,phone:$("bphone").value,place:$("bloc").value==="out"?"Mimo Olomouc":"V Olomouci",km:$("bkm").value,address:$("baddr").value,service:$("bsvc").value,m2:$("bm2").value,note:$("bnote").value};
 fetch(BOOKING_API,{method:"POST",body:JSON.stringify(pl)}).then(function(r){return r.json()}).then(function(d){
-if(d&&d.ok){REMOTE.push(pl.date);markBooked();$("bk").reset();m.classList.add("success");m.textContent=thanks
+if(d&&d.ok){REMOTE.push(pl.date);markBooked();$("bk").reset();m.style.color="var(--sea)";m.textContent=thanks}
 else if(d&&d.error==="occupied"){REMOTE.push(pl.date);selKey=null;renderDays(true);m.style.color="var(--warn)";m.textContent="Termín je již obsazen. Vyberte prosím jiný den."}
 else throw 0}).catch(viaMail);return}
 if(FORM_ENDPOINT){m.style.color="var(--sea)";m.textContent="Odesílám…";
-fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({name:$("bname").value,email:$("bmail").value,message:body,_subject:"Poptávka Deep Clean – "+sel,_autoresponse:"Děkujeme za poptávku termínu "+sel+". Brzy se vám ozveme s potvrzením. Deep Clean Olomouc"})}).then(function(r){if(!r.ok)throw 0;markBooked();m.classList.add("success");m.textContent=thanks}).catch(viaMail);return}
+fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({name:$("bname").value,email:$("bmail").value,message:body,_subject:"Poptávka Deep Clean – "+sel,_autoresponse:"Děkujeme za poptávku termínu "+sel+". Brzy se vám ozveme s potvrzením. Deep Clean Olomouc"})}).then(function(r){if(!r.ok)throw 0;markBooked();m.style.color="var(--sea)";m.textContent=thanks}).catch(viaMail);return}
 viaMail()});
 
 
